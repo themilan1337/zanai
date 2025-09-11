@@ -47,6 +47,44 @@ class AuthController extends Controller
     }
 
     /**
+     * Redirect the user to the Telegram authentication page.
+     */
+    public function redirectToTelegram()
+    {
+        return Socialite::driver('telegram')->redirect();
+    }
+
+    /**
+     * Obtain the user information from Telegram.
+     */
+    public function handleTelegramCallback()
+    {
+        try {
+            $telegramUser = Socialite::driver('telegram')->user();
+            
+            // Find or create user
+            $user = User::updateOrCreate(
+                ['telegram_id' => $telegramUser->id],
+                [
+                    'name' => $telegramUser->name ?? $telegramUser->first_name . ' ' . ($telegramUser->last_name ?? ''),
+                    'email' => $telegramUser->email ?? null,
+                    'telegram_id' => $telegramUser->id,
+                    'telegram_username' => $telegramUser->username ?? null,
+                    'avatar' => $telegramUser->avatar ?? null,
+                    'email_verified_at' => now(),
+                ]
+            );
+
+            Auth::login($user);
+
+            return redirect()->route('dashboard');
+            
+        } catch (\Exception $e) {
+            return redirect()->route('login')->with('error', 'Telegram authentication failed. Please try again.');
+        }
+    }
+
+    /**
      * Show the dashboard with user details.
      */
     public function dashboard()
