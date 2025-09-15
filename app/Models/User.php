@@ -23,8 +23,6 @@ class User extends Authenticatable
         'password',
         'google_id',
         'avatar',
-        'telegram_id',
-        'telegram_username',
     ];
 
     /**

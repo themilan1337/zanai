@@ -28,7 +28,8 @@
             color: #333;
             margin-bottom: 1.5rem;
         }
-        .auth-btn {
+        .google-btn {
+            background-color: #4285f4;
             color: white;
             border: none;
             padding: 12px 24px;
@@ -38,26 +39,9 @@
             text-decoration: none;
             display: inline-block;
             transition: background-color 0.3s;
-            margin: 0.5rem;
-            width: 200px;
-        }
-        .google-btn {
-            background-color: #4285f4;
         }
         .google-btn:hover {
             background-color: #357ae8;
-        }
-        .telegram-btn {
-            background-color: #0088cc;
-        }
-        .telegram-btn:hover {
-            background-color: #006699;
-        }
-        .auth-buttons {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
         }
         .error-message {
             color: #d32f2f;
@@ -67,11 +51,11 @@
             border-radius: 4px;
         }
     </style>
-    </head>
+</head>
 <body>
     <div class="login-container">
         <h1 class="login-title">Welcome</h1>
-        <p>Please sign in with your preferred account to continue.</p>
+        <p>Please sign in with your Google account to continue.</p>
         
         @if(session('error'))
             <div class="error-message">
@@ -79,13 +63,9 @@
             </div>
         @endif
         
-        <div class="auth-buttons">
-            <a href="{{ route('auth.google') }}" class="auth-btn google-btn">
-                🔐 Sign in with Google
-            </a>
-            
-            {!! Socialite::driver('telegram')->getButton() !!}
-        </div>
+        <a href="{{ route('auth.google') }}" class="google-btn">
+            🔐 Sign in with Google
+        </a>
     </div>
 </body>
 </html>

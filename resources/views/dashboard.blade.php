@@ -91,16 +91,7 @@
                 @endif
                 <div>
                     <h1 class="title">Welcome, {{ $user->name }}!</h1>
-                    <p style="margin: 0; color: #666;">
-                        Authenticated via 
-                        @if($user->google_id)
-                            Google OAuth
-                        @elseif($user->telegram_id)
-                            Telegram
-                        @else
-                            Unknown Provider
-                        @endif
-                    </p>
+                    <p style="margin: 0; color: #666;">Authenticated via Google OAuth</p>
                 </div>
             </div>
             <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
@@ -115,30 +106,14 @@
                 <span class="detail-label">Name:</span>
                 <span class="detail-value">{{ $user->name }}</span>
             </div>
-            @if($user->email)
             <div class="detail-row">
                 <span class="detail-label">Email:</span>
                 <span class="detail-value">{{ $user->email }}</span>
             </div>
-            @endif
-            @if($user->google_id)
             <div class="detail-row">
                 <span class="detail-label">Google ID:</span>
                 <span class="detail-value">{{ $user->google_id }}</span>
             </div>
-            @endif
-            @if($user->telegram_id)
-            <div class="detail-row">
-                <span class="detail-label">Telegram ID:</span>
-                <span class="detail-value">{{ $user->telegram_id }}</span>
-            </div>
-            @endif
-            @if($user->telegram_username)
-            <div class="detail-row">
-                <span class="detail-label">Telegram Username:</span>
-                <span class="detail-value">@{{ $user->telegram_username }}</span>
-            </div>
-            @endif
             <div class="detail-row">
                 <span class="detail-label">Email Verified:</span>
                 <span class="detail-value">{{ $user->email_verified_at ? 'Yes (' . $user->email_verified_at->format('M d, Y H:i') . ')' : 'No' }}</span>
@@ -154,14 +129,7 @@
         </div>
         
         <div style="background: #e7f3ff; padding: 1rem; border-radius: 4px; border-left: 4px solid #2196f3;">
-            <strong>🔒 Security Note:</strong> Your account is secured with 
-            @if($user->google_id)
-                Google OAuth 2.0 authentication.
-            @elseif($user->telegram_id)
-                Telegram OAuth authentication.
-            @else
-                secure OAuth authentication.
-            @endif
+            <strong>🔒 Security Note:</strong> Your account is secured with Google OAuth 2.0 authentication.
         </div>
     </div>
 </body>
